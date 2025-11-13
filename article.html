@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الخبر - موقع أخبار الكرة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00ff6a;
+            --dark-bg: #0a0a0a;
+            --card-bg: #161616;
+            --header-bg: #1e1e1e;
+            --text-light: #ccc;
+            --error-color: #ff4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.8;
+            padding: 0;
+        }
+        
+        header {
+            background: var(--header-bg);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 255, 106, 0.25);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(0, 255, 106, 0.1);
+        }
+        
+        .nav-link.active {
+            background: var(--primary-color);
+            color: black;
+            font-weight: bold;
+        }
+        
+        .article-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        .article-title {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #888;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .article-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .article-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content h3 {
+            color: var(--primary-color);
+            margin: 30px 0 15px 0;
+            font-size: 1.4em;
+        }
+        
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .back-btn {
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 106, 0.3);
+        }
+        
+        .source-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        
+        .source-link:hover {
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+        
+        .related-news {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+        
+        .related-title {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 106, 0.2);
+        }
+        
+        .related-card-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--error-color);
+        }
+        
+        .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* تحسينات للجوال */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .article-title {
+                font-size: 1.6em;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .article-actions {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.4em;
+            }
+            
+            .article-content {
+                font-size: 1em;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">📰 أخبار كرة القدم</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">🏠 الأخبار</a>
+                <a href="live-matches.html" class="nav-link">🔴 المباريات</a>
+                <a href="article.html" class="nav-link active">📄 المقالات</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="article-container">
+        <div id="article-content">
+            <!-- سيتم تعبئة المحتوى هنا بواسطة JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        © 2025 موقع أخبار الكرة - جميع الحقوق محفوظة ⚽
+    </footer>
+
+    <script>
+        // بيانات تجريبية للأخبار ذات الصلة
+        const relatedNews = [
+            {
+                title: "تطورات جديدة في انتقالات اللاعبين",
+                description: "آخر المستجدات في سوق الانتقالات الصيفية"
+            },
+            {
+                title: "نتائج مباريات اليوم في الدوريات الأوروبية",
+                description: "ملخص كامل لأهم المباريات وأبرز النتائج"
+            },
+            {
+                title: "تصفيات كأس العالم 2026",
+                description: "آخر تطورات التصفيات المؤهلة لكأس العالم"
+            }
+        ];
+
+        function loadArticle() {
+            const articleContainer = document.getElementById('article-content');
+            
+            // جلب بيانات المقال من localStorage
+            const articleData = localStorage.getItem('currentArticle');
+            
+            if (!articleData) {
+                articleContainer.innerHTML = `
+                    <div class="error-message">
+                        <h2>⚠️ لا يوجد خبر محدد للعرض</h2>
+                        <p>يرجى العودة إلى الصفحة الرئيسية واختيار خبر لعرضه</p>
+                        <a href="index.html" class="home-link">← العودة إلى الصفحة الرئيسية</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const article = JSON.parse(articleData);
+            
+            // تحديث عنوان الصفحة
+            document.title = `${article.title} - موقع أخبار الكرة`;
+            
+            // إنشاء محتوى المقال
+            articleContainer.innerHTML = `
+                <div class="article-header">
+                    <h1 class="article-title">${article.title}</h1>
+                    <div class="article-meta">
+                        <div class="meta-item">📅 ${article.publishedAt}</div>
+                        <div class="meta-item">📰 ${article.source || 'مصدر غير معروف'}</div>
+                    </div>
+                </div>
+                
+                <img src="${article.image}" alt="${article.title}" class="article-image" 
+                     onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                
+                <div class="article-content">
+                    <p>${article.description || 'لا يوجد وصف متاح لهذا الخبر'}</p>
+                    
+                    ${article.content ? `
+                        <p>${article.content}</p>
+                        
+                        <h3>تفاصيل إضافية</h3>
+                        <p>هذا الخبر يحتوي على معلومات إضافية حول الموضوع المطروح. يمكنك متابعة القراءة للتعرف على المزيد من التفاصيل والأحداث المرتبطة بهذا الخبر الرياضي.</p>
+                        
+                        <h3>ردود الفعل</h3>
+                        <p>تلقى هذا الخبر تفاعلاً كبيراً من قبل متابعي كرة القدم والمهتمين بالشأن الرياضي، حيث تناقش الجماهير تداعيات هذا الحدث وتأثيره على المسابقات القادمة.</p>
+                    ` : `
+                        <h3>تفاصيل الخبر</h3>
+                        <p>نقدم لكم التغطية الكاملة لهذا الحدث الرياضي المهم، مع متابعة حصرية لأهم التطورات والتفاصيل التي تهم كل متابعي كرة القدم.</p>
+                        
+                        <h3>الخلفية</h3>
+                        <p>هذا الخبر يأتي في إطار التغطية الشاملة لأحداث عالم كرة القدم، حيث نسعى لتقديم محتوى رياضي متميز يلبي تطلعات الجماهير العربية.</p>
+                    `}
+                </div>
+                
+                <div class="article-actions">
+                    <button class="back-btn" onclick="window.location.href='index.html'">
+                        ← العودة للأخبار
+                    </button>
+                    
+                    ${article.url ? `
+                        <a href="${article.url}" target="_blank" class="source-link">
+                            قراءة في المصدر الأصلي →
+                        </a>
+                    ` : ''}
+                </div>
+                
+                <div class="related-news">
+                    <h3 class="related-title">أخبار ذات صلة</h3>
+                    <div class="related-grid">
+                        ${relatedNews.map(news => `
+                            <div class="related-card" onclick="showRelatedArticle('${news.title}')">
+                                <div class="related-card-title">${news.title}</div>
+                                <div class="related-card-desc">${news.description}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showRelatedArticle(title) {
+            alert(`سيتم فتح خبر: "${title}"\n\nفي التطبيق الكامل، سيتم تحميل الخبر ذي الصلة.`);
+            // في التطبيق الكامل، يمكنك:
+            // - جلب الخبر ذي الصلة من API
+            // - حفظه في localStorage
+            // - إعادة تحميل الصفحة
+        }
+        
+        // تحميل المقال عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
+</body>
+</html>
